@@ -9,7 +9,7 @@ terraform {
 
 provider "aws" {
   region = "sa-east-1"
-  shared_credentials_file = "/var/lib/jenkins/.aws/credentials"
+  shared_credentials_file = "aws/credentials"
   profile = "default"
 }
 
