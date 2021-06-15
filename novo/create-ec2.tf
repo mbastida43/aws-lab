@@ -63,9 +63,9 @@ resource "local_file" "mon" {
 resource "local_file" "mail" {
   filename = "mail.txt"
   content  = <<-EOT
-  To: fabricio.eiras@dge.mobi
+  To: email@com.br
   Subject: New VM do _CLIENTE_ - AWS SP
-  From: rfabricio.eiras@gmail.com
+  From: email@com.br
 
   Olá,
 
