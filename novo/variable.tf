@@ -1,19 +1,19 @@
-variable "cx2k19key" {
+variable "my2k19key" {
   type    = string
   default = "win-2019-3cx-callface"
 }
 
-variable "cxsubnet" {
+variable "mysubnet" {
   type    = string
   default = "subnet-xxxxxxxxxx"
 }
 
-variable "cxec2type" {
+variable "myec2type" {
   type    = string
   default = "t2.large"
 }
 
-variable "cxsg" {
+variable "mysg" {
   type = map(list(string))
   default = {
     "sgc-my-default" = ["sg-xxxxxxxxxxxx"]
