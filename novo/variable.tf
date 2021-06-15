@@ -1,6 +1,6 @@
 variable "my2k19key" {
   type    = string
-  default = "win-2019-3cx-callface"
+  default = "win-2019-my"
 }
 
 variable "mysubnet" {
