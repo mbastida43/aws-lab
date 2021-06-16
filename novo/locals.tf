@@ -1,0 +1,3 @@
+locals {
+  client = "CLIENT-NAME"
+}
