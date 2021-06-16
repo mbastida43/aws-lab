@@ -1,6 +1,6 @@
 # New version
 
-## Terraform + AWS + Consul + Backup .tfstate + Cloudflare DNS
+## Terraform + AWS + Consul + Backup .tfstate + Cloudflare DNS + Jenkins
 
 ### create-ec2.tf
 
@@ -32,6 +32,12 @@ My Consul Server I created by this documentation..
 https://learn.hashicorp.com/tutorials/consul/docker-compose-datacenter?in=consul/docker
 
 The consul server use docker-compose up --detach command, this command run docker with persistent volume.
+
+
+### Jenkins CI/CD
+
+I use Jenkins CI/CD for deploy the VM, and build job with parameter "client" and change the variable with sed command the locals.tf
+The jenkins pipeline run the commands for terraform deploy ( terraform init and terraform apply --auto-approve )
 
 
 Coding by Fabricio Eiras.
