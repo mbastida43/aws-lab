@@ -16,6 +16,15 @@ This code use for create simple ec2 + Elastic IP ( Public IP ).
    * Create entrance on cloudflare DNS for the external access.
 
 
+### The Terraform is separated in 5 file.
+   
+   * create-ec2.tf
+   * data.tf
+   * locals.tf
+   * provider.tf
+   * variabel.tf
+
+
 ### Consul Server
 
 My Consul Server I created by this documentation..
