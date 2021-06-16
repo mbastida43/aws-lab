@@ -85,6 +85,7 @@ resource "null_resource" "prtg" {
 
 output "instance_public_ips" {
   value = aws_eip_association.eip_assoc-cliente.public_ip
+  value = cloudflare_record.callface.hostname
 }
 
 resource "aws_s3_bucket_object" "tf-dge-sp" {
