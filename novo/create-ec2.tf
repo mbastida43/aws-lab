@@ -1,4 +1,4 @@
-resource "aws_instance" "pabx-_CLIENTE_" {
+resource "aws_instance" "pabx-cliente" {
   ami           = data.aws_ami.my.image_id
   key_name      = var.my2k19key
   subnet_id     = var.mysubnet
@@ -6,7 +6,7 @@ resource "aws_instance" "pabx-_CLIENTE_" {
 
 
   tags = merge(var.default_tags, {
-    Name    = "my-_CLIENTE_"
+    Name    = "my-${local.client}"
     Created = timestamp()
   })
 
@@ -18,34 +18,34 @@ resource "aws_instance" "pabx-_CLIENTE_" {
 
 }
 
-resource "aws_eip_association" "eip_assoc-_CLIENTE_" {
-  instance_id   = aws_instance.my-_CLIENTE_.id
-  allocation_id = aws_eip.eip-my-_CLIENTE_.id
+resource "aws_eip_association" "eip_assoc-cliente" {
+  instance_id   = aws_instance.my-cliente.id
+  allocation_id = aws_eip.eip-my-cliente.id
 
 }
 
-resource "aws_eip" "eip-my-_CLIENTE_" {
+resource "aws_eip" "eip-my-cliente" {
   vpc = true
 
   tags = merge(var.default_tags, {
-    Name    = "my-_CLIENTE_"
+    Name    = "my-${local.client}"
     Created = timestamp()
   })
 
-  depends_on = [aws_instance.my-_CLIENTE_]
+  depends_on = [aws_instance.my-cliente]
 }
 
 resource "cloudflare_record" "zone" {
   zone_id = var.cloudflare_zone_id
-  name    = "my-_CLIENTE_"
-  value   = aws_eip_association.eip_assoc-_CLIENTE_.public_ip
+  name    = "my-${local.client}"
+  value   = aws_eip_association.eip_assoc-cliente.public_ip
   type    = "A"
   ttl     = 3600
 
 }
 
 resource "local_file" "instance_public_ips" {
-  content  = aws_eip_association.eip_assoc-_CLIENTE_.public_ip
+  content  = aws_eip_association.eip_assoc-cliente.public_ip
   filename = "public_ip"
 }
 
@@ -64,12 +64,12 @@ resource "local_file" "mail" {
   filename = "mail.txt"
   content  = <<-EOT
   To: email@com.br
-  Subject: New VM do _CLIENTE_ - AWS SP
+  Subject: New VM do ${local.client} - AWS SP
   From: email@com.br
 
   Olá,
 
-  Para acessar a vm  use o endereço: my-_CLIENTE_.dge.mobi porta XXX RDP
+  Para acessar a vm  use o endereço: my-${local.client}.dge.mobi porta XXX RDP
 
   Obs.: O acesso está liberado somente para o range de IP DGE
 
@@ -84,18 +84,18 @@ resource "null_resource" "prtg" {
 }
 
 output "instance_public_ips" {
-  value = aws_eip_association.eip_assoc-_CLIENTE_.public_ip
+  value = aws_eip_association.eip_assoc-cliente.public_ip
 }
 
 resource "aws_s3_bucket_object" "tf-dge-sp" {
 
   bucket = "tf-dge-sp"
-  key    = "_CLIENTE_/create-ec2.tf"
+  key    = "c-${local.client}/create-ec2.tf"
   source = "create-ec2-new.tf"
   etag   = filemd5("create-ec2.tf")
 
   tags = merge(var.default_tags, {
-    Name    = "my-_CLIENTE_"
+    Name    = "my-${local.client}"
     Created = timestamp()
   })
 
@@ -105,7 +105,7 @@ terraform {
   backend "consul" {
     address = "consul.xxxx.com:8500"
     scheme  = "http"
-    path    = "tf-dge/_CLIENTE_-terraform.tfstate"
+    path    = "tf-dge/c-${local.client}-terraform.tfstate"
     lock    = true
     gzip    = false
   }
