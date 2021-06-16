@@ -85,6 +85,9 @@ resource "null_resource" "prtg" {
 
 output "instance_public_ips" {
   value = aws_eip_association.eip_assoc-cliente.public_ip
+}
+
+output "fqdn_cloudflare" {
   value = cloudflare_record.callface.hostname
 }
 
