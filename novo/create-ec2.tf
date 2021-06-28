@@ -88,7 +88,7 @@ output "instance_public_ips" {
 }
 
 output "fqdn_cloudflare" {
-  value = cloudflare_record.callface.hostname
+  value = "cloudflare_record.zone.hostname
 }
 
 resource "aws_s3_bucket_object" "tf-dge-sp" {
