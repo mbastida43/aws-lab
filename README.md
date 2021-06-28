@@ -24,5 +24,9 @@ https://learn.hashicorp.com/tutorials/consul/docker-compose-datacenter?in=consul
 The consul server use docker-compose up --detach command, this command run docker with persistent volume.
 
 
+
+(just a tip from me Marlon, use https://stackedit.io/, it's very easy to work with markup language (I love this one)... <- remove LOL
+
+
                 
                 
